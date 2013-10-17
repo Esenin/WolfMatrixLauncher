@@ -4,7 +4,6 @@
 #include <QRegExp>
 #include <QAction>
 #include <QMenuBar>
-#include <QWebView>
 #include <QMainWindow>
 
 #include "matrixViewer.h"
@@ -27,11 +26,5 @@ protected:
 protected slots:
 	void showInputDialog();
 	void getAnswer();
-	void urlQueryDone(QString url);
-	void showProgress(int progress);
-	void showWebView();
-
-private:
-	QLabel *mTempLabel;
 };
 

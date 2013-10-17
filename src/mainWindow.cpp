@@ -2,7 +2,6 @@
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
-	, mTempLabel(NULL)
 {
 	setWindowTitle("Wolfram matrix launcher");
 
@@ -36,7 +35,6 @@ void MainWindow::initMenuBar()
 MatrixViewer *MainWindow::createMatrixPage(QPoint const &matrixSize)
 {
 	MatrixViewer *matrixPage = new MatrixViewer(this, matrixSize);
-	connect(matrixPage, SIGNAL(urlPrepared(QString)), this, SLOT(urlQueryDone(QString)));
 	return matrixPage;
 }
 
@@ -87,28 +85,4 @@ void MainWindow::getAnswer()
 	setCentralWidget(createMatrixPage(newSize));
 }
 
-void MainWindow::urlQueryDone(QString url)
-{
-	QWebView *view = new QWebView(this);
-	connect(view, SIGNAL(loadProgress(int)), this, SLOT(showProgress(int)));
-	connect(view, SIGNAL(loadFinished(bool)), this, SLOT(showWebView()));
-	view->load(QUrl(url));
 
-	mTempLabel = new QLabel(this);
-	setCentralWidget(mTempLabel);
-}
-
-void MainWindow::showProgress(int progress)
-{
-	if (mTempLabel) {
-		mTempLabel->setText(QString::number(progress));
-	}
-}
-
-void MainWindow::showWebView()
-{
-	QWidget *widget = dynamic_cast<QWidget *>(QObject::sender());
-	if (widget) {
-		setCentralWidget(widget);
-	}
-}

@@ -15,9 +15,6 @@ public:
 	explicit MatrixViewer(QWidget *parent, QPoint const &matrixSize);
 	~MatrixViewer();
 
-signals:
-	void urlPrepared(QString);
-
 protected:
 	void createGUI();
 	void fillZeros();
@@ -33,6 +30,5 @@ private:
 	QPushButton *mStartButton;
 	QPoint mMatrixSize;
 	QList<QLineEdit *> mLinesList;
-
 };
 

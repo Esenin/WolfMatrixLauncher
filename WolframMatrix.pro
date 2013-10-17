@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets webkitwidgets network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = WolfMatrixLauncher
 TEMPLATE = app
@@ -14,7 +14,6 @@ HEADERS  += src/mainWindow.h \
     src/inputDialog.h \
     src/matrixViewer.h
 
-FORMS    +=
 
 OBJECTS_DIR = .obj
 UI_DIR = .ui

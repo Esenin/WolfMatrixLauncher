@@ -58,9 +58,8 @@ void MatrixViewer::startDeligation()
 {
 	fillZeros();
 	QString fullQuery = "http://m.wolframalpha.com/input/?i=" + makeUrlQuery();
-	emit urlPrepared(fullQuery);
 
-//	QDesktopServices::openUrl(QUrl(fullQuery));
+	QDesktopServices::openUrl(QUrl(fullQuery));
 }
 
 QString MatrixViewer::makeUrlQuery()
