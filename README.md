@@ -22,7 +22,7 @@ New:
 ================
 
 ##Контакты
-[Сенин Иван](http://vk.com/senin.ivan)
+[Иван Сенин](http://vk.com/senin.ivan)
 senin-i-i at ya.ru
 
 
