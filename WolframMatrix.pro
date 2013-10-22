@@ -55,3 +55,6 @@ OTHER_FILES += \
     android/src/org/qtproject/qt5/android/bindings/QtApplication.java \
     android/version.xml
 
+RESOURCES += \
+    res/resources.qrc
+

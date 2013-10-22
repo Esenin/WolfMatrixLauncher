@@ -16,7 +16,7 @@ InputDialog::InputDialog(QWidget *parent)
 	QSpacerItem *spacer = new QSpacerItem(20, 20, QSizePolicy::Maximum, QSizePolicy::Expanding);
 	mainLayout->addSpacerItem(spacer);
 
-	QPushButton *okButton = new QPushButton("Ok!", this);
+	QPushButton *okButton = new QPushButton("Done", this);
 	mainLayout->addWidget(okButton);
 	connect(okButton, SIGNAL(clicked()), this, SLOT(btnOkClicked()));
 }

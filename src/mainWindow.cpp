@@ -5,6 +5,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
 	setWindowTitle("Wolfram matrix launcher");
 
+	QBrush brush(Qt::VerPattern);
+	brush.setTextureImage(QImage("://background.jpg"));
+	QPalette curPalette = palette();
+	curPalette.setBrush(QPalette::Background, brush);
+	setPalette(curPalette);
+
 	initMenuBar();
 
 	showInputDialog();
@@ -17,7 +23,6 @@ MainWindow::~MainWindow()
 void MainWindow::initMenuBar()
 {
 	QAction *actionNew_matrix = new QAction("New matrix", this);
-	QAction *actionEsenin = new QAction("Esenin", this);
 	QAction *actionCapClipboard = new QAction("From clipboard", this);
 	QAction *actionExit = new QAction("Exit", this);
 
@@ -25,8 +30,6 @@ void MainWindow::initMenuBar()
 
 	menuFile->addAction(actionNew_matrix);
 	menuFile->addAction(actionCapClipboard);
-	menuFile->addSeparator();
-	menuFile->addAction(actionEsenin);
 	menuFile->addSeparator();
 	menuFile->addAction(actionExit);
 
@@ -67,6 +70,9 @@ bool MainWindow::isValidMatrixSize(QPoint const &size)
 
 void MainWindow::showInputDialog()
 {
+	if (dynamic_cast<InputDialog *>(centralWidget()) != NULL) {
+		return;
+	}
 	InputDialog *dialog = new InputDialog(this);
 	setCentralWidget(dialog);  // this cause old root widget->deleteLater()
 	connect(dialog, SIGNAL(buttonPushed()), this, SLOT(getAnswer()));

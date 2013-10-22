@@ -1,12 +1,12 @@
 #pragma once
 
 #include <QLabel>
-#include <QWidget>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QSpacerItem>
 
+//! @class InputDialog custom dialog window for right displaying on mobile devices
 class InputDialog : public QWidget
 {
 	Q_OBJECT

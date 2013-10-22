@@ -1,6 +1,5 @@
 #include "clipboardObserver.h"
 
-
 void ClipboardObserver::update()
 {
 	mInput = cleanOutInput(clipboardData());

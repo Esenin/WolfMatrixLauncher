@@ -28,6 +28,7 @@ void MatrixViewer::createPowerBox()
 	QIntValidator *degreeValidator = new QIntValidator(this);
 	mMatrixPowerLine = new QLineEdit(tr("1"), this);
 	mMatrixPowerLine->setValidator(degreeValidator);
+	connect(mMatrixPowerLine, SIGNAL(textEdited(QString)), this, SLOT(keypadEmulatorFilter(QString)));
 	connect(mMatrixPowerLine, SIGNAL(returnPressed()), this, SLOT(startDeligation()));
 
 	QGroupBox *powerBox = new QGroupBox(tr("Matrix power:"), this);
@@ -43,7 +44,17 @@ void MatrixViewer::createStartButton()
 	mStartButton = new QPushButton(tr("Launch"), this);
 	mMainLayout->addWidget(mStartButton);
 	connect(mStartButton, SIGNAL(clicked()), this, SLOT(startDeligation()));
-	mStartButton->hide();
+	mStartButton->show();
+}
+
+void MatrixViewer::createClearButton()
+{
+	QPushButton *clearButton = new QPushButton(tr("Clear"), this);
+	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearCells()));
+	mMainLayout->addWidget(clearButton);
+	clearButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+	clearButton->show();
 }
 
 void MatrixViewer::createGUI()
@@ -57,8 +68,9 @@ void MatrixViewer::createGUI()
 
 	setLayout(mMainLayout);
 
-	createPowerBox();
 	createStartButton();
+	createPowerBox();
+	createClearButton();
 }
 
 void MatrixViewer::createDigitEmulatorBox()
@@ -92,13 +104,6 @@ void MatrixViewer::setupMatrix()
 			connect(mLinesList.at(i), SIGNAL(returnPressed()), mStartButton, SLOT(click()));
 		}
 	}
-
-	mStartButton->show();
-	if (mMatrixSize.x() + mMatrixSize.y() == 0) {
-		mStartButton->setEnabled(false);
-	} else {
-		mStartButton->setEnabled(true);
-	}
 }
 
 void MatrixViewer::startDeligation()
@@ -119,17 +124,22 @@ void MatrixViewer::keypadEmulatorFilter(QString const &newValue)
 	if (!isEmulatorWorking || newValue.isEmpty()) {
 		return;
 	}
-	int const alphabeticShift = 2;
 
-
-	QString sample("adgjmptw");
+	QString sample("  adgjmptw");
 	QString input = newValue.toLower();
 	if (sample.contains(input.at(input.size() - 1))) {
-		input.append(QString::number(sample.indexOf(input.at(input.size() - 1)) + alphabeticShift));
+		input.append(QString::number(sample.indexOf(input.at(input.size() - 1))));
 		input.remove(input.size() - 2, 1);
 
 		QLineEdit *curLine = dynamic_cast<QLineEdit *>(sender());
 		curLine->setText(input);
+	}
+}
+
+void MatrixViewer::clearCells()
+{
+	foreach (QLineEdit *edit, mLinesList) {
+		edit->clear();
 	}
 }
 
