@@ -18,17 +18,20 @@ void MainWindow::initMenuBar()
 {
 	QAction *actionNew_matrix = new QAction("New matrix", this);
 	QAction *actionEsenin = new QAction("Esenin", this);
+	QAction *actionCapClipboard = new QAction("From clipboard", this);
 	QAction *actionExit = new QAction("Exit", this);
 
 	QMenu *menuFile = this->menuBar()->addMenu(tr("&File"));
 
 	menuFile->addAction(actionNew_matrix);
+	menuFile->addAction(actionCapClipboard);
 	menuFile->addSeparator();
 	menuFile->addAction(actionEsenin);
 	menuFile->addSeparator();
 	menuFile->addAction(actionExit);
 
 	connect(actionNew_matrix, SIGNAL(triggered()), this, SLOT(showInputDialog()));
+	connect(actionCapClipboard, SIGNAL(triggered()), this, SLOT(setupFromClipboard()));
 	connect(actionExit, SIGNAL(triggered()), this, SLOT(close()));
 }
 
@@ -83,6 +86,20 @@ void MainWindow::getAnswer()
 	}
 
 	setCentralWidget(createMatrixPage(newSize));
+}
+
+void MainWindow::setupFromClipboard()
+{
+	ClipboardObserver observer;
+	observer.update();
+	if (!observer.isValidMatrix()) {
+		return;
+	}
+
+	MatrixViewer *viewer = createMatrixPage(observer.matrixSize());
+	viewer->loadFromList(observer.elements());
+
+	setCentralWidget(viewer);
 }
 
 

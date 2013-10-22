@@ -8,11 +8,13 @@ TEMPLATE = app
 SOURCES += src/main.cpp\
     src/mainWindow.cpp \
     src/inputDialog.cpp \
-    src/matrixViewer.cpp
+    src/matrixViewer.cpp \
+    src/clipboardObserver.cpp
 
 HEADERS  += src/mainWindow.h \
     src/inputDialog.h \
-    src/matrixViewer.h
+    src/matrixViewer.h \
+    src/clipboardObserver.h
 
 
 OBJECTS_DIR = .obj

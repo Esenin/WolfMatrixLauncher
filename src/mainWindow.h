@@ -6,6 +6,7 @@
 #include <QMenuBar>
 #include <QMainWindow>
 
+#include "clipboardObserver.h"
 #include "matrixViewer.h"
 #include "inputDialog.h"
 
@@ -26,5 +27,6 @@ protected:
 protected slots:
 	void showInputDialog();
 	void getAnswer();
+	void setupFromClipboard();
 };
 
